@@ -1,0 +1,22 @@
+{
+  "name": "live-dispatcher",
+  "version": "2.0.0",
+  "description": "Example client library for integrating with the FluentStream live event system (calls, queues, agents, SMS, and more) over Socket.IO.",
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "serve": "node server.js"
+  },
+  "keywords": [
+    "fluentstream",
+    "socket.io",
+    "live",
+    "dispatcher",
+    "voip"
+  ],
+  "license": "UNLICENSED"
+}

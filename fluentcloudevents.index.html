@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>FluentCloud Events Dispatcher</title>
+
+        <script type="module">
+
+            import config from "./config/config.js";
+            import FluentCloudEventsDispatcher from "./fluentcloudEventsDispatcher.js";
+
+            /* These functions correspond to Socket Events, and thus belong to the parent */
+            function connectEventHandler(event) {
+                console.log("Got socket connect event: ", event);
+            }
+            function reconnectEventHandler(event) {
+                console.log("Got socket reconnect event: ", event);
+            }
+            function reconnectingEventHandler(event) {
+                console.log("Got socket reconnecting event. Attempt number ", event);
+            }
+            function reconnectAttemptEventHandler(event) {
+                console.log("Got socket reconnect attempt event.  Attempt number ", event);
+            }
+            function reconnectErrorEventHandler(event) {
+                console.log("Got socket reconnect error event: ", event);
+            }
+            function reconnectFailedEventHandler(event) {
+                console.log("Got socket reconnect failed event");
+            }
+            function pongEventHandler(event) {
+                console.log("Got pong", event);
+            }
+            function newInboundCallHandler(data, call) {
+                console.log("Got new inbound call data: ", data, call);
+            }
+
+            const options = {
+                tenant: config.tenant,
+                eventScope: "",
+                extension: "",
+                config,
+                connectEventHandler,
+                reconnectEventHandler,
+                reconnectingEventHandler,
+                reconnectAttemptEventHandler,
+                reconnectErrorEventHandler,
+                reconnectFailedEventHandler,
+                newInboundCallHandler,
+                pongEventHandler,
+                apikey: config.apikey,
+                username: "",
+                password: "",
+                rooms: "",
+            };
+
+            const dispatcher = new FluentCloudEventsDispatcher(options);
+
+            dispatcher.run();
+
+            document.getElementById("playPingPong").onclick = () => dispatcher.playPingPong();
+            document.getElementById("getcalls").onclick = () => dispatcher.getCalls({ tenant: "exampletenant" });
+
+        </script>
+    </head>
+
+    <body>
+        <p>Testing FluentCloud Events Dispatcher</p>
+
+        <button type="button" id="playPingPong">Play Ping Pong</button>
+        <button type="button" id="getcalls">Get Calls</button>
+    </body>
+</html>
